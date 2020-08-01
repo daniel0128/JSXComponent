@@ -1,4 +1,6 @@
 import { create, Text, Wrapper } from './create';
+import { Animation, Timeline } from './animation';
+import { ease } from './cubicBezier';
 
 class Carousel {
     constructor(config) {
@@ -29,30 +31,42 @@ class Carousel {
 
         let position = 0;
 
+        let timeline = new Timeline;
+        // window.xtimeline = timeline;
+        timeline.start();
         let nextPic = () => {
             let nextPosition = (position + 1) % this.data.length;
 
             let current = children[position];
             let next = children[nextPosition];
 
-            current.style.transition = "ease 0s";
-            next.style.transition = "ease 0s";
+            let currentAnimation = new Animation(current.style, 'transform', - 100 * position, - 100 - 100 * position, 500, 0, ease, v => `translateX(${v}%)`);
+            let nextAnimation = new Animation(next.style, 'transform', 100 - 100 * nextPosition,  - 100 * nextPosition, 500, 0, ease, v => `translateX(${v}%)`);
 
-            current.style.transform = `translateX(${- 100 * position}%)`;
-            next.style.transform = `translateX(${100 - 100 * nextPosition}%)`;
+            timeline.add(currentAnimation);
+            timeline.add(nextAnimation);
+            
+            position = nextPosition;
+            // window.xstopHandler = setTimeout(nextPic, 3000)
+            // current.style.transition = "ease 0s";
+            // next.style.transition = "ease 0s";
 
-            setTimeout(function () {
-                current.style.transition = ""; // "" means use css rule
-                next.style.transition = "";
+            // current.style.transform = `translateX(${- 100 * position}%)`;
+            // next.style.transform = `translateX(${100 - 100 * nextPosition}%)`;
 
-                current.style.transform = `translate(${-100 - 100 * position}%)`;
-                next.style.transform = `translateX(${-100 * nextPosition}%)`;
+            // setTimeout(function () {
+            //     current.style.transition = ""; // "" means use css rule
+            //     next.style.transition = "";
 
-                position = nextPosition;
-            }, 16);
+            //     current.style.transform = `translate(${-100 - 100 * position}%)`;
+            //     next.style.transform = `translateX(${-100 * nextPosition}%)`;
 
+            //     position = nextPosition;
+            // }, 16);
+            
             setTimeout(nextPic, 3000);
         }
+        
         setTimeout(nextPic, 3000);
         return <div class="carousel">
             {children}
