@@ -122,7 +122,7 @@ export function enableGesture(element) {
 
             context.moves = context.moves.filter(record => Date.now() - record.t < 300);
 
-            console.log('pan')
+            // console.log('pan')
             element.dispatchEvent(new CustomEvent('pan', {
                 detail: {
                     startX: context.startX,
@@ -179,7 +179,7 @@ export function enableGesture(element) {
                 }
             }));
 
-            console.log('isFlick:', isFlick)
+            // console.log('isFlick:', isFlick)
         }
         if (context.isPress) {
             element.dispatchEvent(new CustomEvent('pressend', {}));
