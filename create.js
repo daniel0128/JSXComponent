@@ -41,6 +41,10 @@ export class Text {
     mountTo(parent) {
         parent.appendChild(this.root);
     }
+
+    getAttribute(name) {
+        return;
+    }
 }
 
 export class Wrapper {
@@ -51,6 +55,7 @@ export class Wrapper {
     }
 
     setAttribute(name, value) {
+
         this.root.setAttribute(name, value);
 
         if (name.match(/^on([\s\S]+)$/)) {
@@ -61,6 +66,10 @@ export class Wrapper {
         if (name === 'enableGesture') {
             enableGesture(this.root);
         }
+    }
+
+    getAttribute(name) {
+        return this.root.getAttribute(name);
     }
 
     appendChild(child) {
@@ -74,6 +83,14 @@ export class Wrapper {
 
     get style() {
         return this.root.style
+    }
+
+    get classList() {
+        return this.root.classList;
+    }
+
+    set innerText(text) {
+        return this.root.innerText = text;
     }
 
     mountTo(parent) {

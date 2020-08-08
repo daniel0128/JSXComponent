@@ -2,6 +2,7 @@ import { create, Text, Wrapper } from './create';
 import { Animation, Timeline } from './animation';
 import { ease } from './cubicBezier';
 import { enableGesture } from './gesture';
+import css from './carousel.css';
 
 export class Carousel {
     constructor(config) {
