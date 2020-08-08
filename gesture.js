@@ -154,7 +154,7 @@ export function enableGesture(element) {
 
             let record = context.moves[0];
             let speed = Math.sqrt((record.dx - dx) ** 2 + (record.dy - dy) ** 2) / (Date.now() - record.t);
-            let isFlick = speed > 2.5;
+            let isFlick = speed > 1.5;
             if (isFlick) {
                 element.dispatchEvent(new CustomEvent('flick', {
                     detail: {
